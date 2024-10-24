@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up</title>
+
+  <!-- Google Fonts & Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <script src="{% static 'js/main.js' %}"></script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #FFEF2B;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      width: 70%;
+      height: auto;
+      max-width: 500%;
+      display: flex;
+      background-color: #ffffff;
+      border-radius: 30px;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      margin-top: 500px;
+      margin-bottom: 250px;
+      
+    }
+
+    .image-section {
+      flex: 1;
+      background-image: url("{% static 'images/rugbyball.jpg' %}");
+      background-size: cover;
+      background-position: center;
+    }
+
+    .form-section {
+      flex: 1;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    h3 {
+      font-size: 28px;
+      margin-bottom: 20px;
+      font-weight: 600;
+      color: #333;
+      text-align: center;
+    }
+
+    label {
+      margin-top: 15px;
+      font-weight: 500;
+      font-size: 14px;
+      color: #666;
+    }
+
+    input {
+      display: block;
+      width: 100%;
+      height: 40px;
+      margin-top: 5px;
+      padding: 0 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+      color: #333;
+    }
+
+    input::placeholder {
+      color: #aaa;
+    }
+
+    .radio-option {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    
+    .radio-option label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background-color: #4facfe;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #4098d7;
+    }
+
+    .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--yellow);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 2rem 9%;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+        }
+
+        .header .logo {
+            font-size: 2.5rem;
+            font-weight: bolder;
+            color: #01411C;
+        }
+
+        .header .logo i {
+            padding-right: 0.5rem;
+        }
+
+        .header .navbar a {
+            font-size: 1.7rem;
+            margin: 0 1rem;
+            font-weight: bold;
+            color: #01411C;
+        }
+
+        .header .navbar a:hover,
+        .header .icons div:hover {
+            color: #01411C;
+        }
+
+        .header .icons div {
+            font-size: 2.5rem;
+            margin-left: 1.7rem;
+            cursor: pointer;
+        }
+  </style>
+</head>
+
+<body>
+  <!-- Header Section -->
+  <header class="header">
+    <a href="#" class="logo">
+      <i class="fa-solid fa-volleyball"></i> sports kpmim
+    </a>
+    <nav class="navbar">
+      <a href="{% url 'index' %}">Home</a>
+      <a href="{% url 'index' %}#event">Event</a>
+      <a href="{% url 'index' %}#about">About Us</a>
+      <a href="{% url 'index' %}#us">Contact Us</a>
+      <a href="{% url 'login' %}">Log in</a>
+      <a href="{% url 'signup' %}">Sign Up</a>
+    </nav>
+
+    <div class="icons">
+      <div id="menu-btn" class="fas fa-bars"></div>
+      <!--<div id="search-btn" class="fas fa-search"></div>-->
+  </div>
+
+  </header>
+ 
+  <!-- Signup Form Container -->
+  <div class="container">
+    <div class="image-section"></div>
+    <div class="form-section">
+      <form action="" method="post">
+        {% csrf_token %}
+        <h3>Sign Up</h3>
+
+        <!-- Common Fields -->
+        <label for="id">Enter your ID</label>
+        <input type="text" name="id" id="id" placeholder="e.g.: IDI2402009 (No DASH -)(No Space)">
+
+        <label for="name">Enter your name</label>
+        <input type="text" name="name" id="name" placeholder="e.g.: Yasmin">
+
+        <label for="phone">Enter your phone number</label>
+        <input type="text" name="phone" id="phone" placeholder="e.g.: 013-2345656">
+
+        <label for="password1">Password</label>
+        <input type="password" id="password1" name="password1" placeholder="Password">
+
+        <label for="password2">Confirm Password</label>
+        <input type="password" id="password2" name="password2" placeholder="Confirm your password">
+
+        <!-- Role Selection -->
+        <div class="radio-option">
+          <label>Select you role:</label>
+          <label><input type="radio" name="role" value="student" required onclick="toggleRoleFields()"> Student</label>
+          <label><input type="radio" name="role" value="staff" required onclick="toggleRoleFields()"> Staff</label>
+        </div>
+
+        <!-- Student Fields -->
+        <div id="student-fields" style="display: none;">
+          <label for="gender">Enter your gender</label>
+          <input type="text" name="gender" id="gender" placeholder="e.g.: Female">
+
+          <label for="program">Program</label>
+          <input type="text" name="program" id="program" placeholder="e.g.: DCS">
+        </div>
+
+        <!-- Staff Fields -->
+        <div id="staff-fields" style="display: none;">
+          <label for="position">Position</label>
+          <input type="text" name="position" id="position" placeholder="e.g.: Netball manager">
+        </div>
+
+        <button type="submit">Signup</button>
+        <a href="{% url 'login' %}">I already have an account | Login</a>
+      
+    </div>
+  </div></form>
+  
+
+  <script>
+    function toggleRoleFields() {
+      const studentFields = document.getElementById('student-fields');
+      const staffFields = document.getElementById('staff-fields');
+      const selectedRole = document.querySelector('input[name="role"]:checked').value;
+
+      studentFields.style.display = selectedRole === 'student' ? 'block' : 'none';
+      staffFields.style.display = selectedRole === 'staff' ? 'block' : 'none';
+    }
+
+    // Automatically show the correct fields on page load
+    const defaultRole = document.querySelector('input[name="role"]:checked');
+    if (defaultRole) {
+      toggleRoleFields();
+    }
+  </script>
+</body>
+</html>
